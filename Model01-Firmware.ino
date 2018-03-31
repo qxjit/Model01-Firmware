@@ -22,9 +22,6 @@
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
-// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
-#include "Kaleidoscope-NumPad.h"
-
 // Support for an "LED off mode"
 #include "LED-Off.h"
 
@@ -124,7 +121,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { DVORAK, NUMPAD, FUNCTION }; // layers
+enum { DVORAK, FUNCTION }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -141,27 +138,12 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    M(MACRO_LEFT_PAREN), Key_Backspace, Key_LeftGui, Key_LeftShift,
    ShiftToLayer(FUNCTION),
 
-   OSM(RightAlt),     Key_6, Key_7, Key_8, Key_9, Key_0, Key_KeypadNumLock,
+   OSM(RightAlt),     Key_6, Key_7, Key_8, Key_9, Key_0, ___,
    OSM(RightControl),        Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
                       Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
    OSM(LeftGui),      Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
    Key_RightShift, Key_LeftAlt, Key_Spacebar, M(MACRO_RIGHT_PAREN),
    ShiftToLayer(FUNCTION)),
-
-  [NUMPAD] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
-
-   M(MACRO_VERSION_INFO),  ___, Key_Keypad7, Key_Keypad8,   Key_Keypad9,        Key_KeypadSubtract, ___,
-   ___,                    ___, Key_Keypad4, Key_Keypad5,   Key_Keypad6,        Key_KeypadAdd,      ___,
-                           ___, Key_Keypad1, Key_Keypad2,   Key_Keypad3,        Key_Equals,         Key_Quote,
-   ___,                    ___, Key_Keypad0, Key_KeypadDot, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
-   ___, ___, ___, ___,
-   ___),
 
   [FUNCTION] =  KEYMAP_STACKED
   (___,      Key_F1,                Key_F2,         Key_F3,       Key_F4,                   Key_F5,   XXX,
@@ -331,10 +313,6 @@ void setup() {
     // The breathe effect slowly pulses all of the LEDs on your keyboard
     &LEDBreatheEffect,
 
-    // The numpad plugin is responsible for lighting up the 'numpad' mode
-    // with a custom LED effect
-    &NumPad,
-
     // The macros plugin adds support for macros
     &Macros,
 
@@ -354,10 +332,6 @@ void setup() {
     // by lighting up the LEDs for the modifier keys.
     &ActiveModColorEffect
   );
-
-  // While we hope to improve this in the future, the NumPad plugin
-  // needs to be explicitly told which keymap layer is your numpad layer
-  NumPad.numPadLayer = NUMPAD;
 
   // We set the brightness of the rainbow effects to 150 (on a scale of 0-255)
   // This draws more than 500mA, but looks much nicer than a dimmer effect
