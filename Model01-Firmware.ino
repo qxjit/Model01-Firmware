@@ -38,6 +38,9 @@
 // Support for LED modes that pulse the keyboard's LED in a rainbow pattern
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
 
+// Support for Heatmap LED Effect
+#include "Kaleidoscope-Heatmap.h"
+
 // Support for Keyboardio's internal keyboard testing mode
 #include "Kaleidoscope-Model01-TestMode.h"
 
@@ -336,6 +339,10 @@ void setup() {
     // The OneShot plugin enables the definition of one shot modifier keys
     // in the key map
     &OneShot,
+
+    // The HeatmapEffect shows how much each key has been pressed using the
+    // LEDS
+    &HeatmapEffect,
 
     // The ActiveModColorEffect indicates which keyboard modifiers are active
     // by lighting up the LEDs for the modifier keys.
