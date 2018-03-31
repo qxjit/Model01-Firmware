@@ -194,17 +194,19 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
+#define MODDED(mod, key) D(mod), T(key), U(mod)
+
 static const macro_t *tmuxLeaderMacro(uint8_t keyState) {
-  return MACRODOWN(D(LeftControl), T(A), U(LeftControl));
+  return MACRODOWN(MODDED(LeftControl, A));
 }
 
-#define SHIFT(key) MACRODOWN(D(LeftShift), T(key), U(LeftShift));
+#define SHIFT(key) MACRODOWN(MODDED(LeftShift, key))
 
 static const macro_t *vimAltBufferMacro(uint8_t keyState) {
   return MACRODOWN(
-    D(LeftShift), T(Semicolon), U(LeftShift),
+    MODDED(LeftShift, Semicolon),
     T(B), T(U), T(F), T(Space),
-    D(LeftShift), T(3), U(LeftShift),
+    MODDED(LeftShift, 3),
     T(Enter));
 }
 
