@@ -75,6 +75,8 @@ enum { MACRO_VERSION_INFO,
        MACRO_ANY,
        MACRO_TMUX_LEADER,
        MACRO_COLON,
+       MACRO_LEFT_PAREN,
+       MACRO_RIGHT_PAREN,
        MACRO_VIM_ALT_BUFFER
      };
 
@@ -136,14 +138,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
    Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
    Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
+   M(MACRO_LEFT_PAREN), Key_Backspace, Key_LeftGui, Key_LeftShift,
    ShiftToLayer(FUNCTION),
 
    OSM(RightAlt),     Key_6, Key_7, Key_8, Key_9, Key_0, Key_KeypadNumLock,
    OSM(RightControl),        Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
                       Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
    OSM(LeftGui),      Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
+   Key_RightShift, Key_LeftAlt, Key_Spacebar, M(MACRO_RIGHT_PAREN),
    ShiftToLayer(FUNCTION)),
 
   [NUMPAD] =  KEYMAP_STACKED
@@ -214,9 +216,7 @@ static const macro_t *tmuxLeaderMacro(uint8_t keyState) {
   return MACRODOWN(D(LeftControl), T(A), U(LeftControl));
 }
 
-static const macro_t *colonMacro(uint8_t keyState) {
-  return MACRODOWN(D(LeftShift), T(Semicolon), U(LeftShift));
-}
+#define SHIFT(key) MACRODOWN(D(LeftShift), T(key), U(LeftShift));
 
 static const macro_t *vimAltBufferMacro(uint8_t keyState) {
   return MACRODOWN(
@@ -254,7 +254,13 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
     return tmuxLeaderMacro(keyState);
 
   case MACRO_COLON:
-    return colonMacro(keyState);
+    return SHIFT(Semicolon);
+
+  case MACRO_LEFT_PAREN:
+    return SHIFT(9);
+
+  case MACRO_RIGHT_PAREN:
+    return SHIFT(0);
 
   case MACRO_VIM_ALT_BUFFER:
     return vimAltBufferMacro(keyState);
