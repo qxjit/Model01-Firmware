@@ -74,6 +74,8 @@ enum { MACRO_VERSION_INFO,
        MACRO_COLON,
        MACRO_LEFT_PAREN,
        MACRO_RIGHT_PAREN,
+       MACRO_PLUS,
+       MACRO_ASTERISK,
        MACRO_VIM_ALT_BUFFER
      };
 
@@ -121,7 +123,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { DVORAK, FUNCTION }; // layers
+enum { DVORAK, SYMBOL, FUNCTION }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -135,15 +137,30 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
    Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
    Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   M(MACRO_LEFT_PAREN), Key_Backspace, Key_LeftGui, Key_LeftShift,
+   ShiftToLayer(SYMBOL), Key_Backspace, Key_LeftGui, Key_LeftShift,
    ShiftToLayer(FUNCTION),
 
    OSM(RightAlt),     Key_6, Key_7, Key_8, Key_9, Key_0, ___,
    OSM(RightControl),        Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
                       Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
    OSM(LeftGui),      Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, M(MACRO_RIGHT_PAREN),
+   Key_RightShift, Key_LeftAlt, Key_Spacebar, ShiftToLayer(SYMBOL),
    ShiftToLayer(FUNCTION)),
+
+  [SYMBOL] =  KEYMAP_STACKED
+  (___, ___,                 ___,                  ___,                  ___,                   ___, ___,
+   ___, ___,                 ___,                  ___,                  ___,                   ___, ___,
+   ___, M(MACRO_LEFT_PAREN), M(MACRO_RIGHT_PAREN), Key_LeftCurlyBracket, Key_RightCurlyBracket, ___,
+   ___, ___,                 ___,                  ___,                  ___,                   ___, ___,
+   ___, ___,                 ___,                  ___,
+   ___,
+
+   ___, ___, ___,             ___,              ___,               ___,       ___,
+   ___, ___, M(MACRO_PLUS),   Key_Minus,        M(MACRO_ASTERISK), Key_Slash, ___,
+        ___, Key_LeftBracket, Key_RightBracket, Key_Equals,        ___,       ___,
+   ___, ___, ___,             ___,              ___,               ___,       ___,
+   ___, ___, ___,             ___,
+   ___),
 
   [FUNCTION] =  KEYMAP_STACKED
   (___,      Key_F1,                Key_F2,         Key_F3,       Key_F4,                   Key_F5,   XXX,
@@ -245,6 +262,12 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_RIGHT_PAREN:
     return SHIFT(0);
+
+  case MACRO_PLUS:
+    return SHIFT(Equals);
+
+  case MACRO_ASTERISK:
+    return SHIFT(8);
 
   case MACRO_VIM_ALT_BUFFER:
     return vimAltBufferMacro(keyState);
