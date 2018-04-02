@@ -126,6 +126,7 @@ enum { DVORAK, SYMBOL, FUNCTION }; // layers
 #define Key_LessThan    LSHIFT(Key_Comma)
 #define Key_GreaterThan LSHIFT(Key_Period)
 #define Key_Plus        LSHIFT(Key_Equals)
+#define Key_Bang        LSHIFT(Key_1)
 #define Key_Octothorpe  LSHIFT(Key_3)
 #define Key_Dollar      LSHIFT(Key_4)
 #define Key_Asterisk    LSHIFT(Key_8)
@@ -150,7 +151,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [SYMBOL] =  KEYMAP_STACKED
   (___, ___,            ___,            ___,                   ___,                   ___, ___,
-   ___, ___,            Key_LessThan,   Key_GreaterThan,       ___,                   ___, ___,
+   ___, Key_Bang,       Key_LessThan,   Key_GreaterThan,       ___,                   ___, ___,
    ___, Key_LeftParen,  Key_RightParen, Key_LeftCurlyBracket,  Key_RightCurlyBracket, ___,
    ___, ___,            ___,            ___,                   ___,                   ___, ___,
    ___, ___,            ___,            ___,
