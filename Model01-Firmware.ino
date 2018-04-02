@@ -137,14 +137,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
    Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
    Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   ShiftToLayer(SYMBOL), Key_Backspace, Key_LeftGui, Key_LeftShift,
+   Key_LeftGui,  Key_Backspace, ShiftToLayer(SYMBOL), Key_LeftShift,
    ShiftToLayer(FUNCTION),
 
    OSM(RightAlt),     Key_6, Key_7, Key_8, Key_9, Key_0, ___,
    OSM(RightControl),        Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
                       Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
    OSM(LeftGui),      Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, ShiftToLayer(SYMBOL),
+   Key_RightShift, ShiftToLayer(SYMBOL), Key_Spacebar, Key_RightControl,
    ShiftToLayer(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
@@ -167,7 +167,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_Tab,  ___,                   ___,            ___,          M(MACRO_VIM_ALT_BUFFER),  ___,      ___,
    Key_Home, M(MACRO_TMUX_LEADER),  Key_Backslash,  Key_Escape,   M(MACRO_COLON),           Key_Tab,
    Key_End,  Key_PrintScreen,       Key_Insert,     ___,          ___,                      ___,      ___,
-   Key_LeftControl, Key_Delete, ___, ___,
+   ___, Key_Delete, Key_LeftControl, ___,
    ___,
 
    Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10, Key_F11,
