@@ -74,6 +74,8 @@ enum { MACRO_TMUX_LEADER,
        MACRO_RIGHT_PAREN,
        MACRO_PLUS,
        MACRO_ASTERISK,
+       MACRO_LESS_THAN,
+       MACRO_GREATER_THAN,
        MACRO_VIM_ALT_BUFFER
      };
 
@@ -146,17 +148,17 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ShiftToLayer(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
-  (___, ___,                 ___,                  ___,                  ___,                   ___, ___,
-   ___, ___,                 ___,                  ___,                  ___,                   ___, ___,
-   ___, M(MACRO_LEFT_PAREN), M(MACRO_RIGHT_PAREN), Key_LeftCurlyBracket, Key_RightCurlyBracket, ___,
-   ___, ___,                 ___,                  ___,                  ___,                   ___, ___,
+  (___, ___,                 ___,                  ___,                   ___,                   ___, ___,
+   ___, ___,                 M(MACRO_LESS_THAN),   M(MACRO_GREATER_THAN), ___,                   ___, ___,
+   ___, M(MACRO_LEFT_PAREN), M(MACRO_RIGHT_PAREN), Key_LeftCurlyBracket,  Key_RightCurlyBracket, ___,
+   ___, ___,                 ___,                  ___,                   ___,                   ___, ___,
    ___, ___,                 ___,                  ___,
    ___,
 
-   ___, ___, ___,             ___,              ___,               ___,       ___,
-   ___, ___, M(MACRO_PLUS),   Key_Minus,        M(MACRO_ASTERISK), Key_Slash, ___,
-        ___, Key_LeftBracket, Key_RightBracket, Key_Equals,        ___,       ___,
-   ___, ___, ___,             ___,              ___,               ___,       ___,
+   ___, ___, ___,             ___,              ___,               ___,           ___,
+   ___, ___, M(MACRO_PLUS),   Key_Minus,        M(MACRO_ASTERISK), Key_Backslash, ___,
+        ___, Key_LeftBracket, Key_RightBracket, Key_Equals,        Key_Slash,     Key_Pipe,
+   ___, ___, ___,             ___,              ___,               ___,           ___,
    ___, ___, ___,             ___,
    ___),
 
@@ -229,6 +231,12 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_ASTERISK:
     return SHIFT(8);
+
+  case MACRO_LESS_THAN:
+    return SHIFT(Comma);
+
+  case MACRO_GREATER_THAN:
+    return SHIFT(Period);
 
   case MACRO_VIM_ALT_BUFFER:
     return vimAltBufferMacro(keyState);
