@@ -165,7 +165,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_Tab,  ___,                   ___,            ___,          M(MACRO_VIM_ALT_BUFFER),  ___,      ___,
    Key_Home, M(MACRO_TMUX_LEADER),  Key_Backslash,  Key_Escape,   M(MACRO_COLON),           Key_Tab,
    Key_End,  Key_PrintScreen,       Key_Insert,     ___,          ___,                      ___,      ___,
-   ___, Key_Delete, ___, ___,
+   Key_LeftControl, Key_Delete, ___, ___,
    ___,
 
    Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
