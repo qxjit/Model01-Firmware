@@ -68,15 +68,7 @@
   * a macro key is pressed.
   */
 
-enum { MACRO_TMUX_LEADER,
-       MACRO_COLON,
-       MACRO_LEFT_PAREN,
-       MACRO_RIGHT_PAREN,
-       MACRO_PLUS,
-       MACRO_ASTERISK,
-       MACRO_LESS_THAN,
-       MACRO_GREATER_THAN,
-       MACRO_VIM_ALT_BUFFER
+enum { MACRO_VIM_ALT_BUFFER
      };
 
 
@@ -130,6 +122,15 @@ enum { DVORAK, SYMBOL, FUNCTION }; // layers
  */
 // *INDENT-OFF*
 
+#define Key_Colon       LSHIFT(Key_Semicolon)
+#define Key_LessThan    LSHIFT(Key_Comma)
+#define Key_GreaterThan LSHIFT(Key_Period)
+#define Key_Plus        LSHIFT(Key_Equals)
+#define Key_Octothorpe  LSHIFT(Key_3)
+#define Key_Dollar      LSHIFT(Key_4)
+#define Key_Asterisk    LSHIFT(Key_8)
+#define Key_Tmux_Leader LCTRL(Key_A)
+
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [DVORAK] = KEYMAP_STACKED
@@ -148,25 +149,25 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ShiftToLayer(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
-  (___, ___,                 ___,                  ___,                   ___,                   ___, ___,
-   ___, ___,                 M(MACRO_LESS_THAN),   M(MACRO_GREATER_THAN), ___,                   ___, ___,
-   ___, M(MACRO_LEFT_PAREN), M(MACRO_RIGHT_PAREN), Key_LeftCurlyBracket,  Key_RightCurlyBracket, ___,
-   ___, ___,                 ___,                  ___,                   ___,                   ___, ___,
-   ___, ___,                 ___,                  ___,
+  (___, ___,            ___,            ___,                   ___,                   ___, ___,
+   ___, ___,            Key_LessThan,   Key_GreaterThan,       ___,                   ___, ___,
+   ___, Key_LeftParen,  Key_RightParen, Key_LeftCurlyBracket,  Key_RightCurlyBracket, ___,
+   ___, ___,            ___,            ___,                   ___,                   ___, ___,
+   ___, ___,            ___,            ___,
    ___,
 
-   ___, ___, ___,             ___,              ___,               ___,           ___,
-   ___, ___, M(MACRO_PLUS),   Key_Minus,        M(MACRO_ASTERISK), Key_Backslash, ___,
-        ___, Key_LeftBracket, Key_RightBracket, Key_Equals,        Key_Slash,     Key_Pipe,
-   ___, ___, ___,             ___,              ___,               ___,           ___,
+   ___, ___, ___,             ___,              ___,          ___,           ___,
+   ___, ___, Key_Plus,        Key_Minus,        Key_Asterisk, Key_Backslash, ___,
+        ___, Key_LeftBracket, Key_RightBracket, Key_Equals,   Key_Slash,     Key_Pipe,
+   ___, ___, Key_Dollar,      Key_Octothorpe,   ___,          ___,           ___,
    ___, ___, ___,             ___,
    ___),
 
   [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,                Key_F2,         Key_F3,       Key_F4,                   Key_F5,   XXX,
-   Key_Tab,  ___,                   ___,            ___,          M(MACRO_VIM_ALT_BUFFER),  ___,      ___,
-   Key_Home, M(MACRO_TMUX_LEADER),  Key_Backslash,  Key_Escape,   M(MACRO_COLON),           Key_Tab,
-   Key_End,  Key_PrintScreen,       Key_Insert,     ___,          ___,                      ___,      ___,
+  (___,      Key_F1,           Key_F2,         Key_F3,       Key_F4,                   Key_F5,   XXX,
+   Key_Tab,  ___,              ___,            ___,          M(MACRO_VIM_ALT_BUFFER),  ___,      ___,
+   Key_Home, Key_Tmux_Leader,  Key_Backslash,  Key_Escape,   Key_Colon,                Key_Tab,
+   Key_End,  Key_PrintScreen,  Key_Insert,     ___,          ___,                      ___,      ___,
    ___, Key_Delete, Key_LeftControl, ___,
    ___,
 
@@ -183,11 +184,6 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 // *INDENT-ON*
 
 #define MODDED(mod, key) D(mod), T(key), U(mod)
-
-static const macro_t *tmuxLeaderMacro(uint8_t keyState) {
-  return MACRODOWN(MODDED(LeftControl, A));
-}
-
 #define SHIFT(key) MACRODOWN(MODDED(LeftShift, key))
 
 static const macro_t *vimAltBufferMacro(uint8_t keyState) {
@@ -213,31 +209,6 @@ static const macro_t *vimAltBufferMacro(uint8_t keyState) {
 
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
-
-  case MACRO_TMUX_LEADER:
-    return tmuxLeaderMacro(keyState);
-
-  case MACRO_COLON:
-    return SHIFT(Semicolon);
-
-  case MACRO_LEFT_PAREN:
-    return SHIFT(9);
-
-  case MACRO_RIGHT_PAREN:
-    return SHIFT(0);
-
-  case MACRO_PLUS:
-    return SHIFT(Equals);
-
-  case MACRO_ASTERISK:
-    return SHIFT(8);
-
-  case MACRO_LESS_THAN:
-    return SHIFT(Comma);
-
-  case MACRO_GREATER_THAN:
-    return SHIFT(Period);
-
   case MACRO_VIM_ALT_BUFFER:
     return vimAltBufferMacro(keyState);
   }
