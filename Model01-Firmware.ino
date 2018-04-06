@@ -268,16 +268,13 @@ void setup() {
     // We start with the LED effect that turns off all the LEDs.
     &LEDOff,
 
-    // The rainbow effect changes the color of all of the keyboard's keys at the same time
-    // running through all the colors of the rainbow.
-    &LEDRainbowEffect,
+    // The HeatmapEffect shows how much each key has been pressed using the
+    // LEDS
+    &HeatmapEffect,
 
     // The rainbow wave effect lights up your keyboard with all the colors of a rainbow
     // and slowly moves the rainbow across your keyboard
     &LEDRainbowWaveEffect,
-
-    // The breathe effect slowly pulses all of the LEDs on your keyboard
-    &LEDBreatheEffect,
 
     // The macros plugin adds support for macros
     &Macros,
@@ -289,10 +286,6 @@ void setup() {
     // The OneShot plugin enables the definition of one shot modifier keys
     // in the key map
     &OneShot,
-
-    // The HeatmapEffect shows how much each key has been pressed using the
-    // LEDS
-    &HeatmapEffect,
 
     // The ActiveModColorEffect indicates which keyboard modifiers are active
     // by lighting up the LEDs for the modifier keys.
