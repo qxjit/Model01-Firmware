@@ -44,11 +44,6 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
-// Support for one shot modifiers
-//   (https://github.com/keyboardio/Kaleidoscope-OneShot)
-#include "Kaleidoscope-OneShot.h"
-#include "Kaleidoscope/hid.h"
-
 // Support for Active modifier LEDs
 //   (particularly useful with one shot modifiers, see above)
 //   (https://github.com/keyboardio/Kaleidoscope-LED-ActiveModColor)
@@ -135,18 +130,18 @@ enum { DVORAK, SYMBOL, FUNCTION }; // layers
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [DVORAK] = KEYMAP_STACKED
-  (___,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   Key_LeftGui,  Key_Backspace, ShiftToLayer(SYMBOL), Key_LeftShift,
+  (___,              Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
+   Key_Backtick,     Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
+   Key_PageUp,       Key_A,         Key_O,     Key_E,      Key_U, Key_I,
+   Key_PageDown,     Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
+   Key_LeftControl,  Key_Backspace, ShiftToLayer(SYMBOL), Key_LeftShift,
    ShiftToLayer(FUNCTION),
 
-   OSM(RightAlt),     Key_6, Key_7, Key_8, Key_9, Key_0, ___,
-   OSM(RightControl),        Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
-                      Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
-   OSM(LeftGui),      Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, ShiftToLayer(SYMBOL), Key_Spacebar, Key_RightControl,
+   Key_RightAlt, Key_6, Key_7, Key_8, Key_9, Key_0, ___,
+   Key_Enter,    Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
+                 Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
+   ___,          Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
+   Key_RightShift, ShiftToLayer(SYMBOL), Key_Spacebar, Key_RightGui,
    ShiftToLayer(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
@@ -282,10 +277,6 @@ void setup() {
     // The HostPowerManagement plugin enables waking up the host from suspend,
     // and allows us to turn LEDs off when it goes to sleep.
     &HostPowerManagement,
-
-    // The OneShot plugin enables the definition of one shot modifier keys
-    // in the key map
-    &OneShot,
 
     // The ActiveModColorEffect indicates which keyboard modifiers are active
     // by lighting up the LEDs for the modifier keys.
