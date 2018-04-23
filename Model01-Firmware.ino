@@ -149,7 +149,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   [SYMBOL] =  KEYMAP_STACKED
   (___, ___,              ___,                ___,                   ___,                   ___, ___,
    ___, Key_Bang,         Key_LessThan,       Key_GreaterThan,       ___,                   ___, ___,
-   ___, GUI_T(LeftParen), CTL_T(RightParen),  Key_LeftCurlyBracket,  Key_RightCurlyBracket, ___,
+   ___, Key_LeftParen,    Key_RightParen,     Key_LeftCurlyBracket,  Key_RightCurlyBracket, ___,
    ___, ___,              ___,                ___,                   ___,                   ___, ___,
    ___, ___,              ___,                ___,
    ___,
