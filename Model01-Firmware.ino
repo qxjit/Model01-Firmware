@@ -112,7 +112,7 @@ enum { MACRO_VIM_ALT_BUFFER
   *
   */
 
-enum { DVORAK, SYMBOL, FUNCTION }; // layers
+enum { DVORAK, SYMBOL, NUMBERS, FUNCTION }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -143,7 +143,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_Enter,    Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
                  Key_D, SFT_T(H), LT(SYMBOL,T), CTL_T(N), GUI_T(S), Key_Minus,
    ___,          Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
-   Key_RightShift, Key_Enter, Key_Spacebar, Key_RightAlt,
+   ShiftToLayer(NUMBERS), Key_Enter, Key_Spacebar, Key_RightAlt,
    ShiftToLayer(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
@@ -159,6 +159,21 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
         ___, Key_LeftBracket, Key_RightBracket, CTL_T(Equals),  GUI_T(Slash),  Key_Pipe,
    ___, ___, Key_Dollar,      Key_Octothorpe,   ___,            ___,           ___,
    ___, ___, ___,             ___,
+   ___),
+
+  [NUMBERS] =  KEYMAP_STACKED
+  (___, ___,    ___,    ___,    ___,    ___,    ___,
+   ___, ___,    ___,    ___,    ___,    ___,    ___,
+   ___, Key_1,  Key_2,  Key_3,  Key_4,  Key_5,
+   ___, Key_6,  Key_7,  Key_8,  Key_9,  Key_0,  ___,
+   ___, ___,    ___,    ___,
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+        ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
    ___),
 
   [FUNCTION] =  KEYMAP_STACKED
