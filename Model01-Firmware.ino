@@ -49,9 +49,6 @@
 //   (https://github.com/keyboardio/Kaleidoscope-LED-ActiveModColor)
 #include "Kaleidoscope-LED-ActiveModColor.h"
 
-// Support for multi-use quantum keys
-#include <Kaleidoscope-Qukeys.h>
-
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
   * is unique.
@@ -112,7 +109,7 @@ enum { MACRO_VIM_ALT_BUFFER
   *
   */
 
-enum { DVORAK, SYMBOL, NUMBERS, FUNCTION }; // layers
+enum { DVORAK, SYMBOL, FUNCTION }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -133,17 +130,17 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [DVORAK] = KEYMAP_STACKED
   (___,             Key_1,          Key_2,      Key_3,        Key_4,    Key_5, Key_LEDEffectNext,
-   Key_Backtick,    Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, Key_Tab,
-   Key_PageUp,      GUI_T(A),       CTL_T(O),   LT(SYMBOL,E), SFT_T(U), Key_I,
+   Key_Backtick,    Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, Key_LeftControl,
+   Key_PageUp,      Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
    Key_PageDown,    Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
-   Key_Delete, Key_Backspace, Key_Tab, Key_LeftShift,
+   ShiftToLayer(SYMBOL), Key_Backspace, Key_LeftGui, Key_LeftShift,
    ShiftToLayer(FUNCTION),
 
-   Key_RightAlt, Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
-   Key_Enter,    Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
-                 Key_D, SFT_T(H), LT(SYMBOL,T), CTL_T(N), GUI_T(S), Key_Minus,
-   ___,          Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
-   ShiftToLayer(NUMBERS), Key_Enter, Key_Spacebar, Key_RightAlt,
+   Key_RightAlt,      Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
+   Key_RightControl,  Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
+                      Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
+   ___,               Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
+   Key_RightShift, Key_Enter, Key_Spacebar, ShiftToLayer(SYMBOL),
    ShiftToLayer(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
@@ -156,39 +153,24 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
    ___, ___, ___,             ___,              ___,            ___,           ___,
    ___, ___, Key_Plus,        Key_Minus,        Key_Asterisk,   Key_Backslash, ___,
-        ___, Key_LeftBracket, Key_RightBracket, CTL_T(Equals),  GUI_T(Slash),  Key_Pipe,
+        ___, Key_LeftBracket, Key_RightBracket, Key_Equals,     Key_Slash,     Key_Pipe,
    ___, ___, Key_Dollar,      Key_Octothorpe,   ___,            ___,           ___,
    ___, ___, ___,             ___,
    ___),
 
-  [NUMBERS] =  KEYMAP_STACKED
-  (___, ___,    ___,    ___,    ___,    ___,    ___,
-   ___, ___,    ___,    ___,    ___,    ___,    ___,
-   ___, Key_1,  Key_2,  Key_3,  Key_4,  Key_5,
-   ___, Key_6,  Key_7,  Key_8,  Key_9,  Key_0,  ___,
-   ___, ___,    ___,    ___,
-   ___,
-
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-        ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___),
-
   [FUNCTION] =  KEYMAP_STACKED
   (___,      Key_F1,          Key_F2,           Key_F3,       Key_F4,                   Key_F5,   XXX,
-   Key_Tab,  ___,             ___,              ___,          M(MACRO_VIM_ALT_BUFFER),  ___,      ___,
-   Key_Home, Key_LeftGui,     CTL_T(Backslash), Key_Escape,   Key_Colon,                Key_Tab,
-   Key_End,  Key_PrintScreen, Key_Insert,       ___,          ___,                      ___,      ___,
+   Key_Tab,  Key_1,           Key_2,            Key_3,        Key_4,                    Key_5,    ___,
+   Key_Home, Key_Tmux_Leader, Key_Backslash,    Key_Escape,   Key_Colon,                Key_Tab,
+   Key_End,  Key_PrintScreen, Key_Insert,       ___,          M(MACRO_VIM_ALT_BUFFER),  ___,      ___,
    ___, ___, ___, ___,
    ___,
 
-   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10, Key_F11,
-   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, ___,                      ___,                      ___,             ___,     Key_F12,
-                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,     ___,
-   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             ___,     ___,
-   ___, ___, ___, ___,
+   Consumer_ScanPreviousTrack, Key_F6,        Key_F7,                   Key_F8,                   Key_F9,          Key_F10, Key_F11,
+   Consumer_PlaySlashPause,    Key_6,         Key_7,                    Key_8,                    Key_9,           Key_0,   Key_F12,
+                               Key_LeftArrow, Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,     ___,
+   Key_PcApplication,          Consumer_Mute, Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             ___,     ___,
+   ___, ___, Key_Tab, ___,
    ___)
 
 };
@@ -268,10 +250,6 @@ void setup() {
   // The order can be important. For example, LED effects are
   // added in the order they're listed here.
   Kaleidoscope.use(
-    // Quantum key support. This is first in the use list to ensure
-    // it gets first crack at the key events.
-    &Qukeys,
-
     // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
     &BootGreetingEffect,
 
