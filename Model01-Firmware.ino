@@ -128,7 +128,7 @@ KEYMAPS(
    Key_Backtick,    Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, OSM(LeftControl),
    Key_PageUp,      Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
    Key_PageDown,    Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
-   OSL(SYMBOL), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
+   OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    ShiftToLayer(FUNCTION),
 
    OSM(RightAlt),     Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
