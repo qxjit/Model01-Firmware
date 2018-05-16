@@ -35,6 +35,10 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
+// Support for One-Shot keys
+#include "Kaleidoscope-OneShot.h"
+#include "kaleidoscope/hid.h"
+
 // Support for Active modifier LEDs
 //   (particularly useful with one shot modifiers, see above)
 //   (https://github.com/keyboardio/Kaleidoscope-LED-ActiveModColor)
@@ -121,17 +125,17 @@ KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
   (___,             Key_1,          Key_2,      Key_3,        Key_4,    Key_5, Key_LEDEffectNext,
-   Key_Backtick,    Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, Key_LeftControl,
+   Key_Backtick,    Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, OSM(LeftControl),
    Key_PageUp,      Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
    Key_PageDown,    Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
-   ShiftToLayer(SYMBOL), Key_Backspace, Key_LeftGui, Key_LeftShift,
+   OSL(SYMBOL), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    ShiftToLayer(FUNCTION),
 
-   Key_RightAlt,      Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
-   Key_RightControl,  Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
+   OSM(RightAlt),     Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
+   OSM(RightControl), Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
                       Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
    ___,               Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
-   Key_RightShift, Key_Enter, Key_Spacebar, ShiftToLayer(SYMBOL),
+   OSM(RightShift), Key_Enter, Key_Spacebar, OSL(SYMBOL),
    ShiftToLayer(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
@@ -248,6 +252,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // The ActiveModColorEffect indicates which keyboard modifiers are active
   // by lighting up the LEDs for the modifier keys.
   ActiveModColorEffect,
+
+  // Provides support for OneShot keys
+  OneShot,
 
   // The macros plugin adds support for macros
   Macros,
