@@ -129,14 +129,14 @@ KEYMAPS(
    Key_PageUp,      Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
    Key_PageDown,    Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
-   ShiftToLayer(FUNCTION),
+   OSL(FUNCTION),
 
    OSM(RightAlt),     Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
    OSM(RightControl), Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
                       Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
    ___,               Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
    OSM(RightShift), Key_Enter, Key_Spacebar, OSL(SYMBOL),
-   ShiftToLayer(FUNCTION)),
+   OSL(FUNCTION)),
 
   [SYMBOL] =  KEYMAP_STACKED
   (___, ___,              ___,                ___,                   ___,                   ___, ___,
