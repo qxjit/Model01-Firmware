@@ -29,17 +29,8 @@
 // when the keyboard is connected to a computer (or that computer is powered on)
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
 
-// Support for an LED mode that makes all the LEDs 'breathe'
-#include "Kaleidoscope-LEDEffect-Breathe.h"
-
-// Support for LED modes that pulse the keyboard's LED in a rainbow pattern
-#include "Kaleidoscope-LEDEffect-Rainbow.h"
-
 // Support for Heatmap LED Effect
 #include "Kaleidoscope-Heatmap.h"
-
-// Support for Keyboardio's internal keyboard testing mode
-#include "Kaleidoscope-Model01-TestMode.h"
 
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
@@ -126,7 +117,7 @@ enum { DVORAK, SYMBOL, FUNCTION }; // layers
 #define Key_Asterisk    LSHIFT(Key_8)
 #define Key_Tmux_Leader LCTRL(Key_A)
 
-const Key keymaps[][ROWS][COLS] PROGMEM = {
+KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
   (___,             Key_1,          Key_2,      Key_3,        Key_4,    Key_5, Key_LEDEffectNext,
@@ -173,7 +164,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ___, ___, Key_Tab, ___,
    ___)
 
-};
+	) // KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
 // *INDENT-ON*
@@ -237,55 +228,42 @@ void hostPowerManagementEventHandler(kaleidoscope::HostPowerManagement::Event ev
   toggleLedsOnSuspendResume(event);
 }
 
-/** The 'setup' function is one of the two standard Arduino sketch functions.
-  * It's called when your keyboard first powers up. This is where you set up
-  * Kaleidoscope and any plugins.
-  */
+// First, tell Kaleidoscope which plugins you want to use.
+// The order can be important. For example, LED effects are
+// added in the order they're listed here.
+KALEIDOSCOPE_INIT_PLUGINS(
+  // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
+  BootGreetingEffect,
 
+  // LEDControl provides support for other LED modes
+  LEDControl,
+
+  // We start with the LED effect that turns off all the LEDs.
+  LEDOff,
+
+  // The HeatmapEffect shows how much each key has been pressed using the
+  // LEDS
+  HeatmapEffect,
+
+  // The ActiveModColorEffect indicates which keyboard modifiers are active
+  // by lighting up the LEDs for the modifier keys.
+  ActiveModColorEffect,
+
+  // The macros plugin adds support for macros
+  Macros,
+
+  // The HostPowerManagement plugin enables waking up the host from suspend,
+  // and allows us to turn LEDs off when it goes to sleep.
+  HostPowerManagement
+);
+
+/** The 'setup' function is one of the two standard Arduino sketch functions.
+ * It's called when your keyboard first powers up. This is where you set up
+ * Kaleidoscope and any plugins.
+ */
 void setup() {
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
-
-  // Next, tell Kaleidoscope which plugins you want to use.
-  // The order can be important. For example, LED effects are
-  // added in the order they're listed here.
-  Kaleidoscope.use(
-    // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
-    &BootGreetingEffect,
-
-    // The hardware test mode, which can be invoked by tapping Prog, LED and the left Fn button at the same time.
-    &TestMode,
-
-    // LEDControl provides support for other LED modes
-    &LEDControl,
-
-    // We start with the LED effect that turns off all the LEDs.
-    &LEDOff,
-
-    // The HeatmapEffect shows how much each key has been pressed using the
-    // LEDS
-    &HeatmapEffect,
-
-    // The rainbow wave effect lights up your keyboard with all the colors of a rainbow
-    // and slowly moves the rainbow across your keyboard
-    &LEDRainbowWaveEffect,
-
-    // The macros plugin adds support for macros
-    &Macros,
-
-    // The HostPowerManagement plugin enables waking up the host from suspend,
-    // and allows us to turn LEDs off when it goes to sleep.
-    &HostPowerManagement,
-
-    // The ActiveModColorEffect indicates which keyboard modifiers are active
-    // by lighting up the LEDs for the modifier keys.
-    &ActiveModColorEffect
-  );
-
-  // We set the brightness of the rainbow effects to 150 (on a scale of 0-255)
-  // This draws more than 500mA, but looks much nicer than a dimmer effect
-  LEDRainbowEffect.brightness(150);
-  LEDRainbowWaveEffect.brightness(150);
 
   // We want the keyboard to be able to wake the host up from suspend.
   HostPowerManagement.enableWakeup();
