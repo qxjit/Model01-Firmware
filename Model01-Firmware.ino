@@ -16,9 +16,6 @@
 // The Kaleidoscope core
 #include "Kaleidoscope.h"
 
-// Support for macros
-#include "Kaleidoscope-Macros.h"
-
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
@@ -43,24 +40,6 @@
 //   (particularly useful with one shot modifiers, see above)
 //   (https://github.com/keyboardio/Kaleidoscope-LED-ActiveModColor)
 #include "Kaleidoscope-LED-ActiveModColor.h"
-
-/** This 'enum' is a list of all the macros used by the Model 01's firmware
-  * The names aren't particularly important. What is important is that each
-  * is unique.
-  *
-  * These are the names of your macros. They'll be used in two places.
-  * The first is in your keymap definitions. There, you'll use the syntax
-  * `M(MACRO_NAME)` to mark a specific keymap position as triggering `MACRO_NAME`
-  *
-  * The second usage is in the 'switch' statement in the `macroAction` function.
-  * That switch statement actually runs the code associated with a macro when
-  * a macro key is pressed.
-  */
-
-enum { MACRO_VIM_ALT_BUFFER
-     };
-
-
 
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
   * keymaps: The standard QWERTY keymap, the "Function layer" keymap and the "Numpad"
@@ -154,10 +133,10 @@ KEYMAPS(
    ___),
 
   [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,          Key_F2,           Key_F3,       Key_F4,                   Key_F5,   XXX,
-   Key_Tab,  Key_1,           Key_2,            Key_3,        Key_4,                    Key_5,    ___,
-   Key_Home, Key_Tmux_Leader, Key_Backslash,    Key_Escape,   Key_Colon,                Key_Tab,
-   Key_End,  Key_PrintScreen, Key_Insert,       ___,          M(MACRO_VIM_ALT_BUFFER),  ___,      ___,
+  (___,      Key_F1,          Key_F2,           Key_F3,       Key_F4,     Key_F5,   XXX,
+   Key_Tab,  Key_1,           Key_2,            Key_3,        Key_4,      Key_5,    ___,
+   Key_Home, Key_Tmux_Leader, Key_Backslash,    Key_Escape,   Key_Colon,  Key_Tab,
+   Key_End,  Key_PrintScreen, Key_Insert,       ___,          ___,        ___,      ___,
    ___, ___, ___, ___,
    ___,
 
@@ -173,37 +152,6 @@ KEYMAPS(
 /* Re-enable astyle's indent enforcement */
 // *INDENT-ON*
 
-#define MODDED(mod, key) D(mod), T(key), U(mod)
-#define SHIFT(key) MACRODOWN(MODDED(LeftShift, key))
-
-static const macro_t *vimAltBufferMacro(uint8_t keyState) {
-  return MACRODOWN(
-    MODDED(LeftShift, Semicolon),
-    T(B), T(U), T(F), T(Space),
-    MODDED(LeftShift, 3),
-    T(Enter));
-}
-
-
-/** macroAction dispatches keymap events that are tied to a macro
-    to that macro. It takes two uint8_t parameters.
-
-    The first is the macro being called (the entry in the 'enum' earlier in this file).
-    The second is the state of the keyswitch. You can use the keyswitch state to figure out
-    if the key has just been toggled on, is currently pressed or if it's just been released.
-
-    The 'switch' statement should have a 'case' for each entry of the macro enum.
-    Each 'case' statement should call out to a function to handle the macro in question.
-
- */
-
-const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
-  switch (macroIndex) {
-  case MACRO_VIM_ALT_BUFFER:
-    return vimAltBufferMacro(keyState);
-  }
-  return MACRO_NONE;
-}
 
 /** toggleLedsOnSuspendResume toggles the LEDs off when the host goes to sleep,
  * and turns them back on when it wakes up.
@@ -255,9 +203,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // Provides support for OneShot keys
   OneShot,
-
-  // The macros plugin adds support for macros
-  Macros,
 
   // The HostPowerManagement plugin enables waking up the host from suspend,
   // and allows us to turn LEDs off when it goes to sleep.
