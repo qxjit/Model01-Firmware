@@ -124,17 +124,17 @@ enum { DVORAK, SYMBOL, FUNCTION }; // layers
 KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
-  (___,             Key_1,          Key_2,      Key_3,        Key_4,    Key_5, Key_LEDEffectNext,
-   Key_Backtick,    Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, OSM(LeftControl),
-   Key_PageUp,      Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
-   Key_PageDown,    Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
+  (___,              Key_1,          Key_2,      Key_3,        Key_4,    Key_5, Key_LEDEffectNext,
+   Key_Backtick,     Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, OSM(LeftAlt),
+   Key_PageUp,       Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
+   Key_PageDown,     Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    OSL(FUNCTION),
 
-   OSM(RightAlt),     Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
-   OSM(RightControl), Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
-                      Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
-   ___,               Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
+   ___,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
+   OSM(RightAlt),   Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
+                    Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
+   ___,             Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
    OSM(RightShift), Key_Enter, Key_Spacebar, OSL(SYMBOL),
    OSL(FUNCTION)),
 
@@ -282,6 +282,10 @@ void setup() {
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
   LEDOff.activate();
+
+  // Disable sticky oneshots. I often turn them on by accident :(
+  OneShot.double_tap_sticky = false;
+  OneShot.double_tap_sticky_layers = false;
 }
 
 /** loop is the second of the standard Arduino sketch functions.
