@@ -41,6 +41,9 @@
 //   (https://github.com/keyboardio/Kaleidoscope-LED-ActiveModColor)
 #include "Kaleidoscope-LED-ActiveModColor.h"
 
+// Support for tapdance keys
+#include "Kaleidoscope-TapDance.h"
+
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
   * keymaps: The standard QWERTY keymap, the "Function layer" keymap and the "Numpad"
   * keymap.
@@ -73,9 +76,6 @@
 
   * A key defined as 'ShiftToLayer(FUNCTION)' will switch to FUNCTION while held.
   * Similarly, a key defined as 'LockLayer(NUMPAD)' will switch to NUMPAD when tapped.
-  */
-
-/**
   * Layers are "0-indexed" -- That is the first one is layer 0. The second one is layer 1.
   * The third one is layer 2.
   * This 'enum' lets us use names like QWERTY, FUNCTION, and NUMPAD in place of
@@ -83,7 +83,11 @@
   *
   */
 
-enum { DVORAK, SYMBOL, FUNCTION }; // layers
+// Layers
+enum { DVORAK, FUNCTION };
+
+// Tapdances
+enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash };
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -95,8 +99,12 @@ enum { DVORAK, SYMBOL, FUNCTION }; // layers
 #define Key_GreaterThan LSHIFT(Key_Period)
 #define Key_Plus        LSHIFT(Key_Equals)
 #define Key_Bang        LSHIFT(Key_1)
+#define Key_Asperand    LSHIFT(Key_2)
 #define Key_Octothorpe  LSHIFT(Key_3)
 #define Key_Dollar      LSHIFT(Key_4)
+#define Key_Percent     LSHIFT(Key_5)
+#define Key_Caret       LSHIFT(Key_6)
+#define Key_Ampersand   LSHIFT(Key_7)
 #define Key_Asterisk    LSHIFT(Key_8)
 #define Key_Tmux_Leader LCTRL(Key_A)
 
@@ -110,40 +118,25 @@ KEYMAPS(
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    OSL(FUNCTION),
 
-   ___,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
-   OSM(RightAlt),   Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
-                    Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
-   ___,             Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
-   OSM(RightShift), Key_Enter, Key_Spacebar, OSL(SYMBOL),
+   Consumer_Mute,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
+   Consumer_VolumeIncrement,  Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
+                              Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
+   Consumer_VolumeDecrement,  Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
+   OSM(RightShift), Key_Enter, Key_Spacebar, OSM(RightAlt),
    OSL(FUNCTION)),
 
-  [SYMBOL] =  KEYMAP_STACKED
-  (___, ___,              ___,                ___,                   ___,                   ___, ___,
-   ___, Key_Bang,         Key_LessThan,       Key_GreaterThan,       ___,                   ___, ___,
-   ___, Key_LeftParen,    Key_RightParen,     Key_LeftCurlyBracket,  Key_RightCurlyBracket, ___,
-   ___, ___,              ___,                ___,                   ___,                   ___, ___,
-   ___, ___,              ___,                ___,
-   ___,
-
-   ___, ___, ___,             ___,              ___,            ___,           ___,
-   ___, ___, Key_Plus,        Key_Minus,        Key_Asterisk,   Key_Backslash, ___,
-        ___, Key_LeftBracket, Key_RightBracket, Key_Equals,     Key_Slash,     Key_Pipe,
-   ___, ___, Key_Dollar,      Key_Octothorpe,   ___,            ___,           ___,
-   ___, ___, ___,             ___,
-   ___),
-
-  [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,          Key_F2,           Key_F3,       Key_F4,     Key_F5,   XXX,
-   Key_Tab,  Key_1,           Key_2,            Key_3,        Key_4,      Key_5,    ___,
-   Key_Home, Key_Tmux_Leader, Key_Backslash,    Key_Escape,   Key_Colon,  Key_Tab,
-   Key_End,  Key_PrintScreen, Key_Insert,       ___,          ___,        ___,      ___,
+  [FUNCTION] = KEYMAP_STACKED
+  (___,      Key_F1,            Key_F2,           Key_F3,     Key_F4,       Key_F5,     XXX,
+   ___,      TD(DanceSquares),  TD(DanceAngles),  Key_Dollar, Key_Asterisk, Key_Minus,  ___,
+   Key_Home, TD(DanceCurlies),  TD(DanceParens),  Key_Escape, Key_Colon,    Key_Equals,
+   Key_End,  ___,               ___,              ___,        Key_Caret,    Key_Plus,   ___,
    ___, ___, ___, ___,
    ___,
 
-   Consumer_ScanPreviousTrack, Key_F6,        Key_F7,                   Key_F8,                   Key_F9,          Key_F10, Key_F11,
-   Consumer_PlaySlashPause,    Key_6,         Key_7,                    Key_8,                    Key_9,           Key_0,   Key_F12,
-                               Key_LeftArrow, Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,     ___,
-   Key_PcApplication,          Consumer_Mute, Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             ___,     ___,
+   Consumer_ScanPreviousTrack, Key_F6,        Key_F7,         Key_F8,       Key_F9,         Key_F10,        Key_F11,
+   Consumer_PlaySlashPause,    Key_Bang,      TD(DanceSlash), Key_Percent,  Key_Pipe,       Key_Octothorpe, Key_F12,
+                               Key_LeftArrow, Key_DownArrow,  Key_UpArrow,  Key_RightArrow, Key_Ampersand,  Key_Asperand,
+   Key_PcApplication,          ___,           ___,            ___,          ___,            ___,            ___,
    ___, ___, Key_Tab, ___,
    ___)
 
@@ -180,6 +173,34 @@ void hostPowerManagementEventHandler(kaleidoscope::HostPowerManagement::Event ev
   toggleLedsOnSuspendResume(event);
 }
 
+/** tapDanceAction defines the behavior of tapdance keys for each number of
+ * key presses
+ */
+void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_count,
+    kaleidoscope::TapDance::ActionType tap_dance_action) {
+  switch (tap_dance_index) {
+    case DanceParens:
+      return tapDanceActionKeys(tap_count, tap_dance_action,
+          Key_LeftParen, Key_RightParen);
+
+    case DanceCurlies:
+      return tapDanceActionKeys(tap_count, tap_dance_action,
+          Key_LeftCurlyBracket, Key_RightCurlyBracket);
+
+    case DanceSquares:
+      return tapDanceActionKeys(tap_count, tap_dance_action,
+          Key_LeftBracket, Key_RightBracket);
+
+    case DanceAngles:
+      return tapDanceActionKeys(tap_count, tap_dance_action,
+          Key_LessThan, Key_GreaterThan);
+
+    case DanceSlash:
+      return tapDanceActionKeys(tap_count, tap_dance_action,
+          Key_Slash, Key_Backslash);
+  }
+}
+
 // First, tell Kaleidoscope which plugins you want to use.
 // The order can be important. For example, LED effects are
 // added in the order they're listed here.
@@ -203,6 +224,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // Provides support for OneShot keys
   OneShot,
+
+  // Provides support for TapDance keys
+  TapDance,
 
   // The HostPowerManagement plugin enables waking up the host from suspend,
   // and allows us to turn LEDs off when it goes to sleep.
