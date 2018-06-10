@@ -106,7 +106,6 @@ enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash };
 #define Key_Caret       LSHIFT(Key_6)
 #define Key_Ampersand   LSHIFT(Key_7)
 #define Key_Asterisk    LSHIFT(Key_8)
-#define Key_Tmux_Leader LCTRL(Key_A)
 
 KEYMAPS(
 
