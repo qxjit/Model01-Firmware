@@ -87,7 +87,7 @@
 enum { DVORAK, FUNCTION };
 
 // Tapdances
-enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash };
+enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash, DanceQuotes };
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -98,6 +98,7 @@ enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash };
 #define Key_LessThan    LSHIFT(Key_Comma)
 #define Key_GreaterThan LSHIFT(Key_Period)
 #define Key_Plus        LSHIFT(Key_Equals)
+#define Key_DoubleQuote LSHIFT(Key_Quote)
 #define Key_Bang        LSHIFT(Key_1)
 #define Key_Asperand    LSHIFT(Key_2)
 #define Key_Octothorpe  LSHIFT(Key_3)
@@ -125,10 +126,10 @@ KEYMAPS(
    OSL(FUNCTION)),
 
   [FUNCTION] = KEYMAP_STACKED
-  (___,      Key_F1,            Key_F2,           Key_F3,     Key_F4,       Key_F5,     XXX,
-   ___,      TD(DanceSquares),  TD(DanceAngles),  Key_Dollar, Key_Asterisk, Key_Minus,  ___,
-   Key_Home, TD(DanceCurlies),  TD(DanceParens),  Key_Escape, Key_Colon,    Key_Equals,
-   Key_End,  ___,               ___,              ___,        Key_Caret,    Key_Plus,   ___,
+  (___,      Key_F1,            Key_F2,           Key_F3,           Key_F4,       Key_F5,     XXX,
+   ___,      TD(DanceSquares),  TD(DanceAngles),  Key_Dollar,       Key_Asterisk, Key_Minus,  ___,
+   Key_Home, TD(DanceCurlies),  TD(DanceParens),  Key_Escape,       Key_Colon,    Key_Equals,
+   Key_End,  ___,               ___,              TD(DanceQuotes),  Key_Caret,    Key_Plus,   ___,
    ___, ___, ___, ___,
    ___,
 
@@ -197,6 +198,10 @@ void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_cou
     case DanceSlash:
       return tapDanceActionKeys(tap_count, tap_dance_action,
           Key_Slash, Key_Backslash);
+
+    case DanceQuotes:
+      return tapDanceActionKeys(tap_count, tap_dance_action,
+          Key_DoubleQuote, Key_Quote);
   }
 }
 
