@@ -16,6 +16,9 @@
 // The Kaleidoscope core
 #include "Kaleidoscope.h"
 
+// The Kaleidoscope core
+#include "Kaleidoscope-MouseKeys.h"
+
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
@@ -84,7 +87,7 @@
   */
 
 // Layers
-enum { DVORAK, FUNCTION };
+enum { DVORAK, FUNCTION, MOUSE };
 
 // Tapdances
 enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash, DanceQuotes };
@@ -118,7 +121,7 @@ KEYMAPS(
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    OSL(FUNCTION),
 
-   Consumer_Mute,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
+   Consumer_Mute,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    LockLayer(MOUSE),
    Consumer_VolumeIncrement,  Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
                               Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
    Consumer_VolumeDecrement,  Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
@@ -138,6 +141,21 @@ KEYMAPS(
                                Key_LeftArrow, Key_DownArrow,  Key_UpArrow,  Key_RightArrow, Key_Ampersand,  Key_Asperand,
    Key_PcApplication,          ___,           ___,            ___,          ___,            ___,            ___,
    ___, ___, Key_Tab, ___,
+   ___),
+
+  [MOUSE] = KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseWarpNE, Key_mouseBtnL,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+        Key_mouseScrollL, Key_mouseScrollUp, Key_mouseScrollDn, Key_mouseScrollR, Key_mouseBtnR, Key_mouseBtnM,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
    ___)
 
 	) // KEYMAPS(
@@ -231,6 +249,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // Provides support for TapDance keys
   TapDance,
+
+  // Provides support for MouseKeys
+  MouseKeys,
 
   // The HostPowerManagement plugin enables waking up the host from suspend,
   // and allows us to turn LEDs off when it goes to sleep.
