@@ -145,15 +145,15 @@ KEYMAPS(
 
   [MOUSE] = KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseWarpNE, Key_mouseBtnL,
+   ___,              Key_mouseL,      Key_mouseDn,      Key_mouseUp,      Key_mouseR,       ___, ___,
+   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW,  Key_mouseWarpSE,  Key_mouseWarpNE,  ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
    ___,
 
    ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-        Key_mouseScrollL, Key_mouseScrollUp, Key_mouseScrollDn, Key_mouseScrollR, Key_mouseBtnR, Key_mouseBtnM,
+   ___, ___,           Key_mouseScrollL,  Key_mouseScrollR,   ___,            ___,            ___,
+        Key_mouseBtnL, Key_mouseScrollUp, Key_mouseScrollDn,  Key_mouseBtnR,  Key_mouseBtnM,  ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
    ___)
@@ -280,6 +280,9 @@ void setup() {
   // Disable sticky oneshots. I often turn them on by accident :(
   OneShot.double_tap_sticky = false;
   OneShot.double_tap_sticky_layers = false;
+
+  MouseKeys.accelSpeed = 4;
+  MouseKeys.accelDelay = 25;
 }
 
 /** loop is the second of the standard Arduino sketch functions.
