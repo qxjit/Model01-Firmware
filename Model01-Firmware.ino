@@ -144,19 +144,19 @@ KEYMAPS(
    ___),
 
   [MOUSE] = KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___,              Key_mouseL,      Key_mouseDn,      Key_mouseUp,      Key_mouseR,       ___, ___,
-   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW,  Key_mouseWarpSE,  Key_mouseWarpNE,  ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
+  (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX,              Key_mouseL,      Key_mouseDn,      Key_mouseUp,      Key_mouseR,       XXX, XXX,
+   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW,  Key_mouseWarpSE,  Key_mouseWarpNE,  XXX,
+   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, XXX, XXX, XXX,
+   XXX,
 
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___,           Key_mouseScrollL,  Key_mouseScrollR,   ___,            ___,            ___,
-        Key_mouseBtnL, Key_mouseScrollUp, Key_mouseScrollDn,  Key_mouseBtnR,  Key_mouseBtnM,  ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___)
+   XXX, XXX, XXX, XXX, XXX, XXX, ___,
+   XXX, XXX,           Key_mouseScrollL,  Key_mouseScrollR,   XXX,            XXX,            XXX,
+        Key_mouseBtnL, Key_mouseScrollUp, Key_mouseScrollDn,  Key_mouseBtnR,  Key_mouseBtnM,  XXX,
+   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, XXX, XXX, XXX,
+   XXX)
 
 	) // KEYMAPS(
 
