@@ -29,9 +29,6 @@
 // when the keyboard is connected to a computer (or that computer is powered on)
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
 
-// Support for Heatmap LED Effect
-#include "Kaleidoscope-Heatmap.h"
-
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
@@ -46,6 +43,8 @@
 
 // Support for tapdance keys
 #include "Kaleidoscope-TapDance.h"
+
+#include "QxjitEffect.h"
 
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
   * keymaps: The standard QWERTY keymap, the "Function layer" keymap and the "Numpad"
@@ -227,18 +226,14 @@ void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_cou
 // The order can be important. For example, LED effects are
 // added in the order they're listed here.
 KALEIDOSCOPE_INIT_PLUGINS(
-  // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
-  BootGreetingEffect,
-
   // LEDControl provides support for other LED modes
   LEDControl,
 
   // We start with the LED effect that turns off all the LEDs.
   LEDOff,
 
-  // The HeatmapEffect shows how much each key has been pressed using the
-  // LEDS
-  HeatmapEffect,
+  // Default to the Qxjit Effect
+  QxjitEffect,
 
   // The ActiveModColorEffect indicates which keyboard modifiers are active
   // by lighting up the LEDs for the modifier keys.
