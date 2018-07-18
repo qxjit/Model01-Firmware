@@ -44,6 +44,9 @@
 // Support for tapdance keys
 #include "Kaleidoscope-TapDance.h"
 
+// Support for tapdance keys
+#include "Kaleidoscope-LEDEffect-SolidColor.h"
+
 #include "QxjitEffect.h"
 
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
@@ -222,6 +225,13 @@ void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_cou
   }
 }
 
+// Solid white colors for testing purposes
+static kaleidoscope::LEDSolidColor solidWhite1(0x77, 0x77, 0x77);
+static kaleidoscope::LEDSolidColor solidWhite2(0x99, 0x99, 0x99);
+static kaleidoscope::LEDSolidColor solidWhite3(0xbb, 0xbb, 0xbb);
+static kaleidoscope::LEDSolidColor solidWhite4(0xdd, 0xdd, 0xdd);
+static kaleidoscope::LEDSolidColor solidWhite5(0xff, 0xff, 0xff);
+
 // First, tell Kaleidoscope which plugins you want to use.
 // The order can be important. For example, LED effects are
 // added in the order they're listed here.
@@ -234,6 +244,12 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // Default to the Qxjit Effect
   QxjitEffect,
+
+  solidWhite1,
+  solidWhite2,
+  solidWhite3,
+  solidWhite4,
+  solidWhite5,
 
   // The ActiveModColorEffect indicates which keyboard modifiers are active
   // by lighting up the LEDs for the modifier keys.
