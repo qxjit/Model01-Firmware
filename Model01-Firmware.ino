@@ -36,11 +36,6 @@
 #include "Kaleidoscope-OneShot.h"
 #include "kaleidoscope/hid.h"
 
-// Support for Active modifier LEDs
-//   (particularly useful with one shot modifiers, see above)
-//   (https://github.com/keyboardio/Kaleidoscope-LED-ActiveModColor)
-#include "Kaleidoscope-LED-ActiveModColor.h"
-
 // Support for tapdance keys
 #include "Kaleidoscope-TapDance.h"
 
@@ -251,10 +246,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
   solidWhite4,
   solidWhite5,
 
-  // The ActiveModColorEffect indicates which keyboard modifiers are active
-  // by lighting up the LEDs for the modifier keys.
-  ActiveModColorEffect,
-
   // Provides support for OneShot keys
   OneShot,
 
@@ -279,9 +270,6 @@ void setup() {
 
   // We want the keyboard to be able to wake the host up from suspend.
   HostPowerManagement.enableWakeup();
-
-  ActiveModColorEffect.highlight_color = CRGB(0xB0, 0xCC, 0x55);
-  ActiveModColorEffect.sticky_color = CRGB(0xBF, 0xAD, 0xEB);
 
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share

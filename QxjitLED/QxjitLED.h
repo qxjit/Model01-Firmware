@@ -11,5 +11,10 @@ class QxjitLED : public LEDMode {
  protected:
   void update(void) final;
 };
+
+namespace qxjit {
+  bool isSameModifier(Key, Key);
+  bool isModifierActive(Key);
+}
 }
 
