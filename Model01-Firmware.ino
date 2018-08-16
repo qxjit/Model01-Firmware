@@ -246,11 +246,13 @@ KALEIDOSCOPE_INIT_PLUGINS(
   solidWhite4,
   solidWhite5,
 
-  // Provides support for OneShot keys
-  OneShot,
-
   // Provides support for TapDance keys
   TapDance,
+
+  // Provides support for OneShot keys.
+  // (Note: this should to be *after* TapDance keys for best results when
+  // trying to use both at the same time)
+  OneShot,
 
   // Provides support for MouseKeys
   MouseKeys,
