@@ -13,6 +13,7 @@ void QxjitLED::update(void) {
   cRGB guiColor = CRGB(0x00, 0xff, 0x00);
   cRGB controlColor = CRGB(0x00, 0x00, 0xff);
   cRGB altColor = CRGB(0xff, 0xff, 0x00);
+  cRGB stickiesColor = CRGB(0xff, 0x8c, 0x00);
 
   cRGB colors[5];
 
@@ -75,6 +76,11 @@ void QxjitLED::update(void) {
       } else if (qxjit::isSameModifier(k, Key_LeftAlt) ||
                  qxjit::isSameModifier(k, Key_RightAlt)) {
         ::LEDControl.setCrgbAt(r, c, altColor);
+
+      } else if ((r == 0) &&
+                 (::OneShot.double_tap_sticky ||
+                  ::OneShot.double_tap_sticky_layers)) {
+        ::LEDControl.setCrgbAt(r, c, stickiesColor);
 
       } else {
         uint8_t idx = (r + c) % numColors;

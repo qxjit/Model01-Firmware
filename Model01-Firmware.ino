@@ -229,8 +229,10 @@ void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_cou
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
     case TOGGLE_STICKY:
-      OneShot.double_tap_sticky = !OneShot.double_tap_sticky;
-      OneShot.double_tap_sticky_layers = OneShot.double_tap_sticky;
+      if (keyToggledOn(keyState)) {
+        OneShot.double_tap_sticky = !OneShot.double_tap_sticky;
+        OneShot.double_tap_sticky_layers = OneShot.double_tap_sticky;
+      }
       break;
   }
 
