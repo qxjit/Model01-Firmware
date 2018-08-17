@@ -39,8 +39,11 @@
 // Support for tapdance keys
 #include "Kaleidoscope-TapDance.h"
 
-// Support for tapdance keys
+// Support for solid color effects (For testing)
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
+
+// Support for macros!
+#include <Kaleidoscope-Macros.h>
 
 #include "QxjitEffect.h"
 
@@ -86,6 +89,9 @@
 // Layers
 enum { DVORAK, FUNCTION, MOUSE };
 
+// Macros
+enum { TOGGLE_STICKY };
+
 // Tapdances
 enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash, DanceQuotes };
 
@@ -112,7 +118,7 @@ KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
   (___,              Key_1,          Key_2,      Key_3,        Key_4,    Key_5, Key_LEDEffectNext,
-   Key_Backtick,     Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, ___,
+   Key_Backtick,     Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, M(TOGGLE_STICKY),
    Key_PageUp,       Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
    Key_PageDown,     Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
@@ -220,6 +226,17 @@ void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_cou
   }
 }
 
+const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
+  switch (macroIndex) {
+    case TOGGLE_STICKY:
+      OneShot.double_tap_sticky = !OneShot.double_tap_sticky;
+      OneShot.double_tap_sticky_layers = OneShot.double_tap_sticky;
+      break;
+  }
+
+  return MACRO_NONE;
+}
+
 // Solid white colors for testing purposes
 static kaleidoscope::LEDSolidColor solidWhite1(0x77, 0x77, 0x77);
 static kaleidoscope::LEDSolidColor solidWhite2(0x99, 0x99, 0x99);
@@ -257,6 +274,8 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // Provides support for MouseKeys
   MouseKeys,
+
+  Macros,
 
   // The HostPowerManagement plugin enables waking up the host from suspend,
   // and allows us to turn LEDs off when it goes to sleep.
