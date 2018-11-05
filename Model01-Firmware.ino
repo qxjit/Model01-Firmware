@@ -90,7 +90,7 @@ enum { DVORAK, FUNCTION, MOUSE };
 enum { TOGGLE_STICKY };
 
 // Tapdances
-enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash, DanceQuotes };
+enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles };
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -110,6 +110,8 @@ enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles, DanceSlash, DanceQu
 #define Key_Caret       LSHIFT(Key_6)
 #define Key_Ampersand   LSHIFT(Key_7)
 #define Key_Asterisk    LSHIFT(Key_8)
+#define Key_Question    LSHIFT(Key_Slash)
+#define Key_Tilde       LSHIFT(Key_Backtick)
 
 KEYMAPS(
 
@@ -132,14 +134,14 @@ KEYMAPS(
   (___,      Key_F1,            Key_F2,           Key_F3,           Key_F4,       Key_F5,     XXX,
    ___,      TD(DanceSquares),  TD(DanceAngles),  Key_Dollar,       Key_Asterisk, Key_Minus,  ___,
    Key_Home, TD(DanceCurlies),  TD(DanceParens),  Key_Escape,       Key_Colon,    Key_Equals,
-   Key_End,  ___,               ___,              TD(DanceQuotes),  Key_Caret,    Key_Plus,   ___,
+   Key_End,  Key_Backtick,      Key_Quote,        Key_DoubleQuote,  Key_Caret,    Key_Plus,   ___,
    ___, ___, ___, ___,
    ___,
 
    Consumer_ScanPreviousTrack, Key_F6,        Key_F7,         Key_F8,       Key_F9,         Key_F10,        Key_F11,
-   Consumer_PlaySlashPause,    Key_Bang,      TD(DanceSlash), Key_Percent,  Key_Pipe,       Key_Octothorpe, Key_F12,
+   Consumer_PlaySlashPause,    Key_Bang,      Key_Slash,      Key_Percent,  Key_Pipe,       Key_Octothorpe, Key_F12,
                                Key_LeftArrow, Key_DownArrow,  Key_UpArrow,  Key_RightArrow, Key_Ampersand,  Key_Asperand,
-   Key_PcApplication,          ___,           ___,            ___,          ___,            ___,            ___,
+   Key_PcApplication,          Key_Question,  Key_Backslash,  Key_Tilde,    ___,            ___,            ___,
    ___, ___, Key_Tab, ___,
    ___),
 
@@ -212,14 +214,6 @@ void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_cou
     case DanceAngles:
       return tapDanceActionKeys(tap_count, tap_dance_action,
           Key_LessThan, Key_GreaterThan);
-
-    case DanceSlash:
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-          Key_Slash, Key_Backslash);
-
-    case DanceQuotes:
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-          Key_DoubleQuote, Key_Quote);
   }
 }
 
