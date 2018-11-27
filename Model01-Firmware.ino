@@ -217,12 +217,24 @@ void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_cou
   }
 }
 
+static bool stickability_enabled = false;
+const static cRGB stickiesColor = CRGB(0xff, 0x8c, 0x00);
+
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
     case TOGGLE_STICKY:
       if (keyToggledOn(keyState)) {
-        OneShot.double_tap_sticky = !OneShot.double_tap_sticky;
-        OneShot.double_tap_sticky_layers = OneShot.double_tap_sticky;
+        stickability_enabled = !stickability_enabled;
+
+        if (stickability_enabled) {
+          OneShot.enableStickabilityForModifiers();
+          OneShot.enableStickabilityForLayers();
+          QxjitEffect.setStatusBarColor(stickiesColor);
+        } else {
+          OneShot.disableStickabilityForModifiers();
+          OneShot.disableStickabilityForLayers();
+          QxjitEffect.clearStatusBarColor();
+        }
       }
       break;
   }
@@ -289,8 +301,8 @@ void setup() {
   LEDOff.activate();
 
   // Disable sticky oneshots. I often turn them on by accident :(
-  OneShot.double_tap_sticky = false;
-  OneShot.double_tap_sticky_layers = false;
+  OneShot.disableStickabilityForModifiers();
+  OneShot.disableStickabilityForLayers();
 
   MouseKeys.accelSpeed = 4;
   MouseKeys.accelDelay = 25;

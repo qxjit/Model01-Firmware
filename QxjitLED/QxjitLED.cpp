@@ -8,12 +8,20 @@ namespace kaleidoscope {
 QxjitLED::QxjitLED() {
 }
 
+void QxjitLED::setStatusBarColor(cRGB statusBarColor) {
+  this->statusBarColor = statusBarColor;
+  this->statusBarIsActive = true;
+}
+
+void QxjitLED::clearStatusBarColor() {
+  this->statusBarIsActive = false;
+}
+
 void QxjitLED::update(void) {
   cRGB shiftColor = CRGB(0xff, 0x00, 0x00);
   cRGB guiColor = CRGB(0x00, 0xff, 0x00);
   cRGB controlColor = CRGB(0x00, 0x00, 0xff);
   cRGB altColor = CRGB(0xff, 0xff, 0x00);
-  cRGB stickiesColor = CRGB(0xff, 0x8c, 0x00);
 
   cRGB colors[5];
 
@@ -77,10 +85,8 @@ void QxjitLED::update(void) {
                  qxjit::isSameModifier(k, Key_RightAlt)) {
         ::LEDControl.setCrgbAt(r, c, altColor);
 
-      } else if ((r == 0) &&
-                 (::OneShot.double_tap_sticky ||
-                  ::OneShot.double_tap_sticky_layers)) {
-        ::LEDControl.setCrgbAt(r, c, stickiesColor);
+      } else if ((r == 0) && statusBarIsActive) {
+        ::LEDControl.setCrgbAt(r, c, this->statusBarColor);
 
       } else {
         uint8_t idx = (r + c) % numColors;
