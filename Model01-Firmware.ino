@@ -87,7 +87,7 @@
 enum { DVORAK, FUNCTION, MOUSE };
 
 // Macros
-enum { TOGGLE_STICKY };
+enum { TOGGLE_STICKY, MOUSE_SCREEN_NEXT };
 
 // Tapdances
 enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles };
@@ -156,7 +156,7 @@ KEYMAPS(
    XXX, XXX, XXX, XXX, XXX, XXX, ___,
    XXX, XXX,           Key_mouseScrollL,  Key_mouseScrollR,   XXX,            XXX,            XXX,
         Key_mouseBtnL, Key_mouseScrollUp, Key_mouseScrollDn,  Key_mouseBtnR,  Key_mouseBtnM,  XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, XXX,           M(MOUSE_SCREEN_NEXT), XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX,
    XXX)
 
@@ -237,6 +237,9 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
         }
       }
       break;
+
+    case MOUSE_SCREEN_NEXT:
+      return MACRODOWN(D(LeftGui), D(H), U(H), U(LeftGui), W(50), D(M), U(M));
   }
 
   return MACRO_NONE;
