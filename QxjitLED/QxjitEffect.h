@@ -2,4 +2,4 @@
 
 #include <QxjitLED.h>
 
-extern kaleidoscope::QxjitLED QxjitEffect;
+extern kaleidoscope::plugin::QxjitLED QxjitEffect;

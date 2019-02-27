@@ -4,6 +4,7 @@
 #include <Kaleidoscope-LEDControl.h>
 
 namespace kaleidoscope {
+namespace plugin {
 class QxjitLED : public LEDMode {
  public:
   QxjitLED();
@@ -17,6 +18,7 @@ class QxjitLED : public LEDMode {
   cRGB statusBarColor;
   bool statusBarIsActive;
 };
+}
 
 namespace qxjit {
   bool isSameModifier(Key, Key);

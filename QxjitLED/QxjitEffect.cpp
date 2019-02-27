@@ -1,3 +1,3 @@
 #include <QxjitEffect.h>
 
-kaleidoscope::QxjitLED QxjitEffect;
+kaleidoscope::plugin::QxjitLED QxjitEffect;

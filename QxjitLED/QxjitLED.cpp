@@ -4,6 +4,7 @@
 #include <kaleidoscope/hid.h>
 
 namespace kaleidoscope {
+namespace plugin {
 
 QxjitLED::QxjitLED() {
 }
@@ -94,6 +95,7 @@ void QxjitLED::update(void) {
       }
     }
   }
+}
 }
 
 namespace qxjit {

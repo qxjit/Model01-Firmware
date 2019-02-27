@@ -197,7 +197,7 @@ void hostPowerManagementEventHandler(kaleidoscope::HostPowerManagement::Event ev
  * key presses
  */
 void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_count,
-    kaleidoscope::TapDance::ActionType tap_dance_action) {
+    kaleidoscope::plugin::TapDance::ActionType tap_dance_action) {
   switch (tap_dance_index) {
     case DanceParens:
       return tapDanceActionKeys(tap_count, tap_dance_action,
@@ -246,11 +246,11 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 }
 
 // Solid white colors for testing purposes
-static kaleidoscope::LEDSolidColor solidWhite1(0x77, 0x77, 0x77);
-static kaleidoscope::LEDSolidColor solidWhite2(0x99, 0x99, 0x99);
-static kaleidoscope::LEDSolidColor solidWhite3(0xbb, 0xbb, 0xbb);
-static kaleidoscope::LEDSolidColor solidWhite4(0xdd, 0xdd, 0xdd);
-static kaleidoscope::LEDSolidColor solidWhite5(0xff, 0xff, 0xff);
+static kaleidoscope::plugin::LEDSolidColor solidWhite1(0x77, 0x77, 0x77);
+static kaleidoscope::plugin::LEDSolidColor solidWhite2(0x99, 0x99, 0x99);
+static kaleidoscope::plugin::LEDSolidColor solidWhite3(0xbb, 0xbb, 0xbb);
+static kaleidoscope::plugin::LEDSolidColor solidWhite4(0xdd, 0xdd, 0xdd);
+static kaleidoscope::plugin::LEDSolidColor solidWhite5(0xff, 0xff, 0xff);
 
 // First, tell Kaleidoscope which plugins you want to use.
 // The order can be important. For example, LED effects are
