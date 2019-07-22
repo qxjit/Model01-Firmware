@@ -123,7 +123,7 @@ KEYMAPS(
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    OSL(FUNCTION),
 
-   Consumer_Mute,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
+   Consumer_Play,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    XXX,
    Consumer_VolumeIncrement,  Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
                               Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
    Consumer_VolumeDecrement,  Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
