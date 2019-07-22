@@ -123,7 +123,7 @@ KEYMAPS(
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    OSL(FUNCTION),
 
-   Consumer_Mute,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    LockLayer(MOUSE),
+   Consumer_Mute,             Key_6, Key_7,    Key_8,        Key_9,    Key_0,    ___,
    Consumer_VolumeIncrement,  Key_F, Key_G,    Key_C,        Key_R,    Key_L,    Key_Slash,
                               Key_D, Key_H,    Key_T,        Key_N,    Key_S,    Key_Minus,
    Consumer_VolumeDecrement,  Key_B, Key_M,    Key_W,        Key_V,    Key_Z,    Key_Equals,
@@ -135,7 +135,7 @@ KEYMAPS(
    ___,      TD(DanceSquares),  TD(DanceAngles),  Key_Dollar,       Key_Asterisk, Key_Minus,  ___,
    Key_Home, TD(DanceCurlies),  TD(DanceParens),  Key_Escape,       Key_Colon,    Key_Equals,
    Key_End,  Key_Backtick,      Key_Quote,        Key_DoubleQuote,  Key_Caret,    Key_Plus,   ___,
-   ___, ___, ___, ___,
+   ___, LockLayer(MOUSE), ___, ___,
    ___,
 
    Consumer_ScanPreviousTrack, Key_F6,        Key_F7,         Key_F8,       Key_F9,         Key_F10,        Key_F11,
@@ -147,17 +147,17 @@ KEYMAPS(
 
   [MOUSE] = KEYMAP_STACKED
   (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX,              Key_mouseL,      Key_mouseDn,      Key_mouseUp,      Key_mouseR,       XXX, XXX,
-   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW,  Key_mouseWarpSE,  Key_mouseWarpNE,  XXX,
+   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW,  Key_mouseWarpSE,  Key_mouseWarpNE,  XXX, XXX,
+   XXX,              Key_mouseL,      Key_mouseDn,      Key_mouseUp,      Key_mouseR,       XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX,
+   Key_LeftControl, LockLayer(MOUSE), Key_LeftGui, Key_LeftShift,
    XXX,
 
    XXX, XXX, XXX, XXX, XXX, XXX, ___,
-   XXX, XXX,           Key_mouseScrollL,  Key_mouseScrollR,   XXX,            XXX,            XXX,
-        Key_mouseBtnL, Key_mouseScrollUp, Key_mouseScrollDn,  Key_mouseBtnR,  Key_mouseBtnM,  XXX,
-   XXX, XXX,           M(MOUSE_SCREEN_NEXT), XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX,
+   XXX, XXX,              XXX,               XXX,                XXX,               XXX, XXX,
+        Key_mouseScrollL, Key_mouseScrollDn, Key_mouseScrollUp,  Key_mouseScrollR,  XXX, XXX,
+   XXX, XXX,              M(MOUSE_SCREEN_NEXT), XXX, XXX, XXX, XXX,
+   Key_mouseBtnM, Key_mouseBtnR, Key_mouseBtnL, Key_RightAlt,
    XXX)
 
 	) // KEYMAPS(
