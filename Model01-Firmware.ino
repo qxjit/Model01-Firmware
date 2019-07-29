@@ -135,30 +135,30 @@ KEYMAPS(
    ___,      TD(DanceSquares),  TD(DanceAngles),  Key_Dollar,       Key_Asterisk, Key_Minus,  ___,
    Key_Home, TD(DanceCurlies),  TD(DanceParens),  Key_Escape,       Key_Colon,    Key_Equals,
    Key_End,  Key_Backtick,      Key_Quote,        Key_DoubleQuote,  Key_Caret,    Key_Plus,   ___,
-   ___, LockLayer(MOUSE), ___, ___,
-   ___,
+   ___, ___, ___, ___,
+   LockLayer(MOUSE),
 
    Consumer_ScanPreviousTrack, Key_F6,        Key_F7,         Key_F8,       Key_F9,         Key_F10,        Key_F11,
    Consumer_PlaySlashPause,    Key_Bang,      Key_Slash,      Key_Percent,  Key_Pipe,       Key_Octothorpe, Key_F12,
                                Key_LeftArrow, Key_DownArrow,  Key_UpArrow,  Key_RightArrow, Key_Ampersand,  Key_Asperand,
    Key_PcApplication,          Key_Question,  Key_Backslash,  Key_Tilde,    ___,            ___,            ___,
    ___, ___, Key_Tab, ___,
-   ___),
+   LockLayer(MOUSE)),
 
   [MOUSE] = KEYMAP_STACKED
   (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
    Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW,  Key_mouseWarpSE,  Key_mouseWarpNE,  XXX, XXX,
    XXX,              Key_mouseL,      Key_mouseDn,      Key_mouseUp,      Key_mouseR,       XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   Key_LeftControl, LockLayer(MOUSE), Key_LeftGui, Key_LeftShift,
-   XXX,
+   Key_LeftControl, XXX, Key_LeftGui, Key_LeftShift,
+   LockLayer(MOUSE),
 
    XXX, XXX, XXX, XXX, XXX, XXX, ___,
    XXX, XXX,              XXX,               XXX,                XXX,               XXX, XXX,
         Key_mouseScrollL, Key_mouseScrollDn, Key_mouseScrollUp,  Key_mouseScrollR,  XXX, XXX,
    XXX, XXX,              M(MOUSE_SCREEN_NEXT), XXX, XXX, XXX, XXX,
    Key_mouseBtnM, Key_mouseBtnR, Key_mouseBtnL, Key_RightAlt,
-   XXX)
+   LockLayer(MOUSE))
 
 	) // KEYMAPS(
 
