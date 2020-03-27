@@ -1,6 +1,8 @@
 // -*- mode: c++ -*-
 // Copyright 2016 Keyboardio, inc. <jesse@keyboard.io>
 // See "LICENSE" for license details
+//
+// last loaded against commit e204a8c of the keyboardio repo
 
 #ifndef BUILD_INFORMATION
 #define BUILD_INFORMATION "locally built"
