@@ -35,9 +35,6 @@
 #include "Kaleidoscope-OneShot.h"
 #include "kaleidoscope/hid.h"
 
-// Support for tapdance keys
-#include "Kaleidoscope-TapDance.h"
-
 // Support for solid color effects (For testing)
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
 
@@ -91,9 +88,6 @@ enum { DVORAK, FUNCTION, MOUSE };
 // Macros
 enum { TOGGLE_STICKY, MOUSE_SCREEN_NEXT };
 
-// Tapdances
-enum { DanceParens, DanceCurlies, DanceSquares, DanceAngles };
-
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
  */
@@ -133,10 +127,10 @@ KEYMAPS(
    OSL(FUNCTION)),
 
   [FUNCTION] = KEYMAP_STACKED
-  (___,      Key_F1,            Key_F2,           Key_F3,           Key_F4,       Key_F5,     XXX,
-   ___,      TD(DanceSquares),  TD(DanceAngles),  Key_Dollar,       Key_Asterisk, Key_Minus,  ___,
-   Key_Home, TD(DanceCurlies),  TD(DanceParens),  Key_Escape,       Key_Colon,    Key_Equals,
-   Key_End,  Key_Backtick,      Key_Quote,        Key_DoubleQuote,  Key_Caret,    Key_Plus,   ___,
+  (___,      Key_LeftCurlyBracket,  Key_LeftBracket,  Key_RightBracket,  Key_RightCurlyBracket,  Key_F5,     XXX,
+   ___,      Key_Dollar,            Key_LessThan,     Key_GreaterThan,   Key_Asterisk,           Key_Minus,  ___,
+   Key_Home, Key_Escape,            Key_LeftParen,    Key_RightParen,    Key_Colon,              Key_Equals,
+   Key_End,  Key_Backtick,          Key_Quote,        Key_DoubleQuote,   Key_Caret,              Key_Plus,   ___,
    ___, ___, ___, ___,
    LockLayer(MOUSE),
 
@@ -195,30 +189,6 @@ void hostPowerManagementEventHandler(kaleidoscope::HostPowerManagement::Event ev
   toggleLedsOnSuspendResume(event);
 }
 
-/** tapDanceAction defines the behavior of tapdance keys for each number of
- * key presses
- */
-void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_count,
-    kaleidoscope::plugin::TapDance::ActionType tap_dance_action) {
-  switch (tap_dance_index) {
-    case DanceParens:
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-          Key_LeftParen, Key_RightParen);
-
-    case DanceCurlies:
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-          Key_LeftCurlyBracket, Key_RightCurlyBracket);
-
-    case DanceSquares:
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-          Key_LeftBracket, Key_RightBracket);
-
-    case DanceAngles:
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-          Key_LessThan, Key_GreaterThan);
-  }
-}
-
 static bool stickability_enabled = false;
 const static cRGB stickiesColor = CRGB(0xff, 0x8c, 0x00);
 
@@ -274,13 +244,7 @@ KALEIDOSCOPE_INIT_PLUGINS(
   solidWhite5,
 
   // Provides support for OneShot keys.
-  // (Note: this should to be *before* TapDance keys for best results when
-  // trying to use both at the same time)
   OneShot,
-
-  // Provides support for TapDance keys
-  TapDance,
-
 
   // Provides support for MouseKeys
   MouseKeys,
