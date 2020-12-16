@@ -66,32 +66,32 @@ void QxjitLED::update(void) {
     numColors += 1;
   }
 
-  for (uint8_t r = 0; r < ROWS; r++) {
-    for (uint8_t c = 0; c < COLS; c++) {
-      Key k = Layer.lookupOnActiveLayer(r, c);
+  for (auto addr : KeyAddr::all()) {
+    if (addr.isValid()) {
+      Key k = Layer.lookupOnActiveLayer(addr);
 
       if (qxjit::isSameModifier(k, Key_LeftShift) ||
           qxjit::isSameModifier(k, Key_RightShift)) {
-        ::LEDControl.setCrgbAt(r, c, shiftColor);
+        ::LEDControl.setCrgbAt(addr, shiftColor);
 
       } else if (qxjit::isSameModifier(k, Key_LeftGui) ||
                  qxjit::isSameModifier(k, Key_RightGui)) {
-        ::LEDControl.setCrgbAt(r, c, guiColor);
+        ::LEDControl.setCrgbAt(addr, guiColor);
 
       } else if (qxjit::isSameModifier(k, Key_LeftControl) ||
                  qxjit::isSameModifier(k, Key_RightControl)) {
-        ::LEDControl.setCrgbAt(r, c, controlColor);
+        ::LEDControl.setCrgbAt(addr, controlColor);
 
       } else if (qxjit::isSameModifier(k, Key_LeftAlt) ||
                  qxjit::isSameModifier(k, Key_RightAlt)) {
-        ::LEDControl.setCrgbAt(r, c, altColor);
+        ::LEDControl.setCrgbAt(addr, altColor);
 
-      } else if ((r == 0) && statusBarIsActive) {
-        ::LEDControl.setCrgbAt(r, c, this->statusBarColor);
+      } else if ((addr.row() == 0) && statusBarIsActive) {
+        ::LEDControl.setCrgbAt(addr, this->statusBarColor);
 
       } else {
-        uint8_t idx = (r + c) % numColors;
-        ::LEDControl.setCrgbAt(r, c, colors[idx]);
+        uint8_t idx = (addr.row() + addr.col()) % numColors;
+        ::LEDControl.setCrgbAt(addr, colors[idx]);
       }
     }
   }
@@ -100,17 +100,17 @@ void QxjitLED::update(void) {
 
 namespace qxjit {
   bool isSameModifier(Key key, Key modifier) {
-    if (key.raw >= Key_LeftControl.raw && key.raw <= Key_RightGui.raw) {
-      return key.raw == modifier.raw;
-    } else if (key.raw >= ranges::OSM_FIRST && key.raw <= ranges::OSM_LAST) {
-      return (key.raw + Key_LeftControl.keyCode - ranges::OSM_FIRST) == modifier.raw;
+    if (key.getRaw() >= Key_LeftControl.getRaw() && key.getRaw() <= Key_RightGui.getRaw()) {
+      return key.getRaw() == modifier.getRaw();
+    } else if (key.getRaw() >= ranges::OSM_FIRST && key.getRaw() <= ranges::OSM_LAST) {
+      return (key.getRaw() + Key_LeftControl.getKeyCode() - ranges::OSM_FIRST) == modifier.getRaw();
     } else {
       return false;
     }
   }
 
   bool isModifierActive(Key key) {
-    return ::kaleidoscope::hid::isModifierKeyActive(key) ||
+    return ::kaleidoscope::Runtime.hid().keyboard().isModifierKeyActive(key) ||
            ::OneShot.isModifierActive(key);
   }
 }
