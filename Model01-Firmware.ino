@@ -83,10 +83,10 @@
   */
 
 // Layers
-enum { DVORAK, FUNCTION, MOUSE };
+enum { DVORAK, FUNCTION, ASWD, MOUSE };
 
 // Macros
-enum { TOGGLE_STICKY, MOUSE_SCREEN_NEXT };
+enum { TOGGLE_STICKY };
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -134,17 +134,32 @@ KEYMAPS(
    ___, ___, ___, ___,
    LockLayer(MOUSE),
 
-   Consumer_ScanPreviousTrack, Key_F6,        Key_F7,         Key_F8,       Key_F9,         Key_F10,        Key_F11,
+   Consumer_ScanPreviousTrack, Key_F6,        Key_F7,         Key_F8,       Key_F9,         Key_F10,        LockLayer(ASWD),
    Consumer_PlaySlashPause,    Key_Bang,      Key_Slash,      Key_Percent,  Key_Pipe,       Key_Octothorpe, Key_F12,
                                Key_LeftArrow, Key_DownArrow,  Key_UpArrow,  Key_RightArrow, Key_Ampersand,  Key_Asperand,
    Key_PcApplication,          Key_Question,  Key_Backslash,  Key_Tilde,    ___,            ___,            ___,
    ___, ___, Key_Tab, ___,
    LockLayer(MOUSE)),
 
+  [ASWD] = KEYMAP_STACKED
+  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+   Key_Backtick, Key_Q, Key_F, Key_E, Key_R, Key_T, Key_Tab,
+   Key_PageUp,   Key_A, Key_S, Key_W, Key_D, Key_G,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
+   Key_LeftControl, Key_Spacebar, Key_LeftGui, Key_LeftShift,
+   XXX,
+
+   Key_Backspace, Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(ASWD),
+   ___,           Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
+                  Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
+   ___,           Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
+   Key_RightShift, Key_Enter, Key_Spacebar, Key_RightAlt,
+   XXX),
+
   [MOUSE] = KEYMAP_STACKED
   (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   Key_mouseWarpEnd, Key_mouseWarpNW, Key_mouseWarpSW,  Key_mouseWarpSE,  Key_mouseWarpNE,  XXX, XXX,
-   XXX,              Key_mouseL,      Key_mouseDn,      Key_mouseUp,      Key_mouseR,       XXX,
+   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, Key_mouseL, Key_mouseDn,  Key_mouseUp, Key_mouseR,       XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
    Key_LeftControl, XXX, Key_LeftGui, Key_LeftShift,
    LockLayer(MOUSE),
@@ -152,7 +167,7 @@ KEYMAPS(
    XXX, XXX, XXX, XXX, XXX, XXX, ___,
    XXX, XXX,              XXX,               XXX,                XXX,               XXX, XXX,
         Key_mouseScrollL, Key_mouseScrollDn, Key_mouseScrollUp,  Key_mouseScrollR,  XXX, XXX,
-   XXX, XXX,              M(MOUSE_SCREEN_NEXT), XXX, XXX, XXX, XXX,
+   XXX, XXX,              XXX,               XXX,                XXX,               XXX, XXX,
    Key_mouseBtnM, Key_mouseBtnR, Key_mouseBtnL, Key_RightAlt,
    LockLayer(MOUSE))
 
@@ -206,20 +221,10 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
         }
       }
       break;
-
-    case MOUSE_SCREEN_NEXT:
-      return MACRODOWN(D(LeftGui), D(H), U(H), U(LeftGui), W(50), D(M), U(M));
   }
 
   return MACRO_NONE;
 }
-
-// Solid white colors for testing purposes
-static kaleidoscope::plugin::LEDSolidColor solidWhite1(0x77, 0x77, 0x77);
-static kaleidoscope::plugin::LEDSolidColor solidWhite2(0x99, 0x99, 0x99);
-static kaleidoscope::plugin::LEDSolidColor solidWhite3(0xbb, 0xbb, 0xbb);
-static kaleidoscope::plugin::LEDSolidColor solidWhite4(0xdd, 0xdd, 0xdd);
-static kaleidoscope::plugin::LEDSolidColor solidWhite5(0xff, 0xff, 0xff);
 
 // First, tell Kaleidoscope which plugins you want to use.
 // The order can be important. For example, LED effects are
@@ -233,12 +238,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // Default to the Qxjit Effect
   QxjitEffect,
-
-  solidWhite1,
-  solidWhite2,
-  solidWhite3,
-  solidWhite4,
-  solidWhite5,
 
   // Provides support for OneShot keys.
   OneShot,
@@ -261,10 +260,7 @@ void setup() {
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
-  // We want to make sure that the firmware starts with LED effects off
-  // This avoids over-taxing devices that don't have a lot of power to share
-  // with USB devices
-  LEDOff.activate();
+  QxjitEffect.activate();
 
   // Disable sticky oneshots. I often turn them on by accident :(
   OneShot.disableStickabilityForModifiers();
