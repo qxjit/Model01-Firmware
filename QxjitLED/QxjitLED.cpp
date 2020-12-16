@@ -29,7 +29,7 @@ void QxjitLED::update(void) {
   uint8_t numColors = 1;
   uint8_t topLayer = Layer.top();
 
-  switch (topLayer % 3) {
+  switch (topLayer % 4) {
     case 3:
       colors[0] = CRGB(0xdd, 0xdd, 0x00);
       break;
