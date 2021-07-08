@@ -86,7 +86,7 @@
 enum { DVORAK, FUNCTION, ASWD, MOUSE };
 
 // Macros
-enum { TOGGLE_STICKY };
+enum { };
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -113,7 +113,7 @@ KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
   (___,              Key_1,          Key_2,      Key_3,        Key_4,    Key_5, Key_LEDEffectNext,
-   Key_Backtick,     Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, M(TOGGLE_STICKY),
+   Key_Backtick,     Key_Quote,      Key_Comma,  Key_Period,   Key_P,    Key_Y, ___,
    Key_PageUp,       Key_A,          Key_O,      Key_E,        Key_U,    Key_I,
    Key_PageDown,     Key_Semicolon,  Key_Q,      Key_J,        Key_K,    Key_X, Key_Escape,
    OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
@@ -201,26 +201,8 @@ void hostPowerManagementEventHandler(kaleidoscope::HostPowerManagement::Event ev
   toggleLedsOnSuspendResume(event);
 }
 
-static bool stickability_enabled = false;
-const static cRGB stickiesColor = CRGB(0xff, 0x8c, 0x00);
-
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
-    case TOGGLE_STICKY:
-      if (keyToggledOn(keyState)) {
-        stickability_enabled = !stickability_enabled;
-
-        if (stickability_enabled) {
-          OneShot.enableStickabilityForModifiers();
-          OneShot.enableStickabilityForLayers();
-          QxjitEffect.setStatusBarColor(stickiesColor);
-        } else {
-          OneShot.disableStickabilityForModifiers();
-          OneShot.disableStickabilityForLayers();
-          QxjitEffect.clearStatusBarColor();
-        }
-      }
-      break;
   }
 
   return MACRO_NONE;
